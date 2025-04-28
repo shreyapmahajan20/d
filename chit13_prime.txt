@@ -1,0 +1,44 @@
+object PrimeCheck {
+ def main(args: Array[String]): Unit = {
+ val number = scala.io.StdIn.readInt()
+ val isPrime = if (number <= 1) false else (2 until number).forall(x => number % x != 0)
+ if (isPrime) println(s"$number is Prime") else println(s"$number is NOT Prime")
+ }
+}
+
+
+
+another method
+
+
+
+import org.apache.spark.sql.SparkSession
+
+object PrimeNumberChecker {
+  def main(args: Array[String]): Unit = {
+    // Create a SparkSession
+    val spark = SparkSession.builder
+      .appName("Prime Number Checker")
+      .master("local[*]") // Use all available cores
+      .getOrCreate()
+
+    // Create an RDD of numbers
+    val numbers = spark.sparkContext.parallelize(1 to 100) // Replace 100 with your range limit
+
+    // Function to check if a number is prime
+    def isPrime(num: Int): Boolean = {
+      if (num <= 1) false
+      else if (num == 2) true
+      else !(2 to Math.sqrt(num).toInt).exists(i => num % i == 0)
+    }
+
+    // Use the `filter` transformation to find prime numbers
+    val primeNumbers = numbers.filter(isPrime)
+
+    // Collect and print the prime numbers
+    primeNumbers.collect().foreach(println)
+
+    // Stop the SparkSession
+    spark.stop()
+  }
+}
