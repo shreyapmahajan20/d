@@ -1,0 +1,18 @@
+Install Scala and Apache framework on local system.(UBUNTU O.S)
+
+Installation steps:
+Java required for Scala
+1)	sudo apt-get install default-jdk
+2)	sudo apt-get install scala
+3)	java --version 
+
+Apache Installation:
+
+1)	wget https://dlcdn.apache.org/spark/spark-3.4.0/spark-3.4.0-bin-hadoop3.tgz
+2)	tar xvf spark-3.4.0-bin-hadoop3.tgz
+3)	sudo mv spark-3.4.0-bin-hadoop3 /opt/spark
+4)	nano ~/.bashrc
+5)	export SPARK_HOME=/opt/spark 
+6)	export PATH=$PATH:$SPARK_HOME/bin
+7)	source ~/.bashrc
+8)	spark-shell
